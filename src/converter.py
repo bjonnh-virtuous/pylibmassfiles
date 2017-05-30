@@ -34,7 +34,7 @@ args = parser.parse_args()
 
 
 if args.input_format == "mgf":
-    input_translator_type = MGFTranslator
+    input_translator_type = MGFTranslator()
 else:
     input_translator_type = None
 
@@ -65,7 +65,7 @@ for filename in args.files:
 
     if not input_translator_type:
         if filename.endswith('.mgf'):
-            input_translator_type = MGFTranslator
+            input_translator_type = MGFTranslator()
         else:
             print("Impossible to determine format of input file {}".format(
                 filename), file=sys.stderr)

@@ -2,10 +2,6 @@ class MATTranslator:
     """Converter to MAT format. Only do writing for now"""
     READER = 0
     WRITER = 1
-    mstype = ""
-
-    def set_mstype(self, mstype):
-        self.mstype = mstype
 
     def internal_to_stream(self, internal, stream):
         if internal.name:
@@ -43,16 +39,13 @@ class MATTranslator:
                 internal.scans))
 
         # Internal mstype overrides the translator type
-        if internal.mstype:
+        for mstype in internal.ions:
             stream.write("MSTYPE: {}\n".format(
-                internal.mstype))
-        elif self.mstype:
-            stream.write("MSTYPE: {}\n".format(
-                self.mstype))
+                mstype))
 
-        if internal.ions:
-            stream.write("Num Peaks: {}\n".format(len(internal.ions)))
-            for ion in internal.ions:
+            ions = internal.ions[mstype]
+            stream.write("Num Peaks: {}\n".format(len(ions)))
+            for ion in ions:
                 if len(ion) > 2 and ion[2] != "":
                     stream.write("{} {} {}\n".format(*ion))
                 else:

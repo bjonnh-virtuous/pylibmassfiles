@@ -23,6 +23,22 @@ Or to stdout
     $ cd src
     $ python ./converter.py file1.mgf file2.mgf…
 
+
+## Usage of the merger
+
+To merge one ms and a msms (only works with MGF as input and MAT as output for now):
+
+    $ cd src
+    $ python ./merger.py -1 ms1.mgf -2 ms2.mgf -o output.mat -n "Name of the merged"
+    
+Or to stdout:
+
+    $ cd src
+    $ python ./merger.py -1 ms1.mgf -2 ms2.mgf -n "Name of the merged"
+
+
+Name is used to give a name to the merged spectrum
+
 # Formats descriptors 
 
 ## MSP Description

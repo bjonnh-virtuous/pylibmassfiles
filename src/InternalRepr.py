@@ -3,11 +3,13 @@ class InternalRepr():
 lot in here, try not to rely on it yet"""
     POSITIVE = 1
     NEGATIVE = 2
+    DEFAULT_MSTYPE = 1
 
     def __init__(self):
         self.instrument = "Unknown instrument"
-        self.ions = []
-        self.mstype = ""
+        self.ions = {}
+        self.mstypes = [""]
+        self.mstype = self.DEFAULT_MSTYPE
         self.title = ""
         self.mode = 0
         self.name = ""
@@ -17,8 +19,12 @@ lot in here, try not to rely on it yet"""
         self.scans = 0
         self.precursormass = ""
 
-    def add_ion(self, ion, value, formula=None):
-        self.ions.append([ion, value, formula])
+    @property
+    def mstype(self):
+        return self.__mstype
+    @mstype.setter
+    def mstype(self, mstype):
+        self.__mstype = mstype
 
     @property
     def instrument(self):
@@ -91,13 +97,16 @@ lot in here, try not to rely on it yet"""
         self.__scans = x
 
     @property
-    def mstype(self):
-        return self.__mstype
+    def mstypes(self):
+        return self.__mstypes
 
-    @mstype.setter
-    def mstype(self, x):
-        self.__mstype = x
+    @mstypes.setter
+    def mstypes(self, x):
+        self.__mstypes = x
 
+    def mstypes_add(self, x):
+        if x not in self.__mstypes:
+            self.__mstypes.append(x)
 
     @property
     def precursormass(self):
@@ -107,5 +116,19 @@ lot in here, try not to rely on it yet"""
     def precursormass(self, x):
         self.__precursormass = x
 
+    def add_ion(self, ion, value, formula=None, mstype=None):
+        """Add ion of type *mstype* in the storage"""
+        if mstype is None:
+            mstype = self.mstype  # We take the default mstype if not specified
+        if mstype not in self.ions:
+            self.ions[mstype] = []
+        self.ions[mstype].append([ion, value, formula])
 
-    
+    def grab_ions(self, internalr):
+        """Grab the ions from *internalr* (a InternalRepr too) and add them to the
+        current one"""
+        for mstype in internalr.ions:
+            if mstype not in self.ions:
+                self.ions[mstype] = []
+
+            self.ions[mstype] += internalr.ions[mstype]

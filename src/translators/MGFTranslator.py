@@ -9,13 +9,20 @@ class MGFTranslator:
     START = 0
     READER = 1
     WRITER = 0
+    DEFAULT_MSTYPE= "MS1"
 
-    def __init__(self):
+    def __init__(self, mstype=DEFAULT_MSTYPE):
         self.spectras = []
+        self.mstype = mstype
 
     def read_from_stream(self, stream):
+        """Read from *stream* returns a list of InternalRepr spectra with the *mstype* type
+        Mixed types are not allowed.
+        """
         mode = self.START
         current = InternalRepr()
+        current.mstype = self.mstype
+
         for line in stream.readlines():
             if line.startswith("#"):  # Comment
                 continue
@@ -79,7 +86,7 @@ class MGFTranslator:
                             formula = ""
 
                         current.add_ion(float(ions[0]), float(ions[1]),
-                                        formula)
+                                        formula, current.mstype)
                     except ValueError:
                         print("Invalid ion format: {}".format(line.strip()))
 
