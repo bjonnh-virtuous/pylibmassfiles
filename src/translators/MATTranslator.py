@@ -17,9 +17,7 @@ class MATTranslator:
         if internal.activation:
             stream.write("ACTIVATION: {}\n".format(
                 internal.activation))
-        if internal.precursormass:
-            stream.write("PRECURSORMZ: {}\n".format(
-                internal.precursormass))
+        stream.write("PRECURSORMZ:\n")
         stream.write("PRECURSORTYPE:\n")
         mode = ""
         if internal.mode == internal.POSITIVE:
