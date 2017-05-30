@@ -54,7 +54,7 @@ class MGFTranslator:
                     current = InternalRepr()
 
                 elif line.startswith("PEPMASS="):
-                    pass
+                    current.precursormass = line.split("=")[1].strip()
                 elif line.startswith("RTINSECONDS="):
                     current.retentiontime = line.split("=")[1].strip()
                 elif line.startswith("CHARGE="):
