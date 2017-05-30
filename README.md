@@ -23,6 +23,10 @@ Or to stdout
     $ cd src
     $ python ./converter.py file1.mgf file2.mgf…
 
+The mstype (default MS1) can be specified with option -t
+
+    $ cd src
+    $ python ./converter.py -t MS2 file1.mgf file2.mgf…
 
 ## Usage of the merger
 

@@ -7,9 +7,6 @@ from translators.MATTranslator import MATTranslator
 from translators.MGFTranslator import MGFTranslator
 from tools.StreamTranslator import StreamTranslator
 
-import io
-
-
 supported_input_formats = ['mgf']
 supported_output_formats = ['mat']
 
@@ -17,11 +14,14 @@ parser = argparse.ArgumentParser(
     description='Convert mass spectral library formats'
 )
 
-
-parser.add_argument('-I','--input-format', type=str, nargs=1,
+parser.add_argument('-t', '--mstype', type=str, nargs=1,
+                    help='The type of MS',
+                    choices=['MS1', 'MS2'],
+                    default='MS1')
+parser.add_argument('-I', '--input-format', type=str, nargs=1,
                     help='The input format',
                     choices=['mgf'])
-parser.add_argument('-O','--output-format', type=str, nargs=1,
+parser.add_argument('-O', '--output-format', type=str, nargs=1,
                     help='The output format',
                     default='mat',
                     choices=['mat'])
@@ -65,7 +65,7 @@ for filename in args.files:
 
     if not input_translator_type:
         if filename.endswith('.mgf'):
-            input_translator_type = MGFTranslator()
+            input_translator_type = MGFTranslator(args.mstype[0])
         else:
             print("Impossible to determine format of input file {}".format(
                 filename), file=sys.stderr)

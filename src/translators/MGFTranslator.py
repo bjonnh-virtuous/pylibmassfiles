@@ -66,7 +66,7 @@ class MGFTranslator:
                     current.retentiontime = line.split("=")[1].strip()
                 elif line.startswith("CHARGE="):
                     charge = line.split("=")[1].strip()
-                    if charge == "-1":
+                    if charge == "-1" or charge == "1-":
                         current.mode = InternalRepr.NEGATIVE
                     elif charge == "1+":
                         current.mode = InternalRepr.POSITIVE
