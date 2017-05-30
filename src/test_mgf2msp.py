@@ -7,7 +7,7 @@ import io
 msp_test_ms = """NAME: challenge-009-ms.mgf
 INSTRUMENTTYPE: LC-ESI-QTOF
 ACTIVATION: CID
-PRECURSORMZ:
+PRECURSORMZ: 
 PRECURSORTYPE:
 IONMODE: Negative
 RETENTIONTIME: -1
@@ -42,7 +42,7 @@ END IONS
 msp_test_msms = """NAME: challenge-009-msms.mgf
 INSTRUMENTTYPE: LC-ESI-QTOF
 ACTIVATION: CID
-PRECURSORMZ:
+PRECURSORMZ: 
 PRECURSORTYPE:
 IONMODE: Negative
 RETENTIONTIME: -1
@@ -125,5 +125,4 @@ class Test_MGF2MSP:
 
         output_stream.seek(0)
         output = output_stream.read()
-        print(output)
         assert output == msp_test_msms
