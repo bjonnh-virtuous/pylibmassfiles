@@ -15,6 +15,7 @@ lot in here, try not to rely on it yet"""
         self.retentiontime = ""
         self.activation = ""
         self.scans = 0
+        self.precursormass = ""
 
     def add_ion(self, ion, value, formula=None):
         self.ions.append([ion, value, formula])
@@ -96,3 +97,15 @@ lot in here, try not to rely on it yet"""
     @mstype.setter
     def mstype(self, x):
         self.__mstype = x
+
+
+    @property
+    def precursormass(self):
+        return self.__precursormass
+
+    @precursormass.setter
+    def precursormass(self, x):
+        self.__precursormass = x
+
+
+    
